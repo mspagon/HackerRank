@@ -29,32 +29,31 @@ class Trie:
 
         for i, letter in enumerate(name):  # for each letter in name
 
-            char_found = 0
+            child_position = current_node.search(letter)  # search children of current_node for letter
 
-            for child in current_node.children:  # for each child
-
-                if letter == child.char:
-                    child.increment_count()
-                    current_node = child
-                    char_found = 1
-                    break
-
-            if char_found == 0:
+            if child_position != -1:  # letter found!
+                current_node = current_node.children[child_position]
+                current_node.increment_count()
+            else:
                 new_node = Node(letter)
                 current_node.children.append(new_node)
                 current_node = new_node
 
     def find(self, name: str) -> int:
+        """count how many times 'name' appears in the Trie
+
+        In other words, count how many leaf nodes are within the subtree specified by 'name'.
+        """
         current_node = self.head
 
         for i, letter in enumerate(name):
 
-            child_position = current_node.search(letter)
+            child_position = current_node.search(letter)  # search children of current_node for letter
 
-            if child_position != -1:
+            if child_position != -1:  # if letter was found advance current_node
                 current_node = current_node.children[child_position]
 
-                if i == len(name) - 1:
+                if i == len(name) - 1:  # if this was last letter in word, return count.
                     return current_node.count
             else:
                 return 0
