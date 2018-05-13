@@ -1,6 +1,8 @@
 # Author: mspagon
 # Date: 5/12/18 4:40 PM
 
+# Problem: https://www.hackerrank.com/challenges/ctci-contacts/problem
+
 
 class Node:
     def __init__(self, char: str):
